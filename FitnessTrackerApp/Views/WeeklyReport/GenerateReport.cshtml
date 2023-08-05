@@ -1,0 +1,111 @@
+﻿@model List<WeeklyReport>
+
+@{
+    ViewData["Title"] = "WeeklyReport";
+}
+
+<div class="page-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="header-text">
+                    <h2>View Weekly Report</h2>
+                    <div class="div-dec"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="top-section" style="margin-bottom:130px;">
+    <div class="container">
+        <div class="col-lg-10 offset-lg-1">
+            @foreach (var weeklyReport in Model)
+            {
+                <h4 class="mt-5">Week starting on @weeklyReport.WeekStartDate.ToString("yyyy-MM-dd")</h4>
+
+                <!-- Display the data for this week's report -->
+                <!-- Example: Display completed workouts -->
+                <div class="table-responsive mt-4">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Workout Type</th>
+                                <th>Duration </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (weeklyReport.Workouts.Any())
+                            {
+                                @foreach (var workout in weeklyReport.Workouts)
+                                {
+                                    <tr>
+                                        <td>@workout.Date.ToString("yyyy-MM-dd")</td>
+                                        <td>@workout.WorkoutId</td>
+                                        <td>@workout.Duration minutes</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3">No workouts done for this week.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Example: Display consumed cheat meals -->
+                <div class="table-responsive mt-4">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Meal Name</th>
+                                <th>Amount Consumed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (weeklyReport.CheatMeals.Any())
+                            {
+                                @foreach (var cheatMeal in weeklyReport.CheatMeals)
+                                {
+                                    <tr>
+                                        <td>@cheatMeal.Date.ToString("yyyy-MM-dd")</td>
+                                        <td>@cheatMeal.MealId</td>
+                                        <td>@cheatMeal.AmountConsumed grams</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3">No cheat meals consumed for this week.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+              
+            }
+        </div>
+        <div class="col-lg-12" style="display: flex; justify-content: center">
+            <fieldset>
+                <br />
+                <a href="/" class="btn btn-secondary" style="width:150px">
+                    <span>Back to Home</span>
+                </a>
+            </fieldset>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

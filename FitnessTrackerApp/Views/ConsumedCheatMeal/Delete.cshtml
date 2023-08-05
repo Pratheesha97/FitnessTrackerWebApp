@@ -1,0 +1,100 @@
+﻿@model ConsumedCheatMeal
+
+<div class="page-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="header-text">
+                    <h2>Delete Cheat Meal Log</h2>
+                    <div class="div-dec"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ***** Main Banner Area End ***** -->
+
+<section class="top-section" style="margin-bottom:130px;">
+    <div class="container">
+        <div class="col-lg-10 offset-lg-1">
+            <form id="calculate" method="post" asp-action="DeletePost">
+                <div class="row">
+                    <input type="hidden" asp-for="ConsumedCheatMealId" />
+                    <div class="col-lg-12">
+                        <fieldset>
+                            <label for="date" style="color: black" asp-for="Date"> Date </label>
+                            <input type="date"
+                                   name="date"
+                                   id="date"
+                                   placeholder=""
+                                   autocomplete="on"
+                                   asp-for="Date" 
+                                   disabled />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                        <fieldset>
+                            <label for="chooseOption"
+                                   class="form-label"
+                                   style="color: black" asp-for="MealId">Meal Name</label>
+                            <select name="MealId"
+                                    class="form-select"
+                                    aria-label="Default select example"
+                                    id="chooseOption"
+                                    onchange="this.form.click()" asp-for="MealId" disabled>
+                                <option selected>Choose an Option</option>
+                                <option value="1">Burger</option>
+                                <option value="2">Pizza</option>
+                                <option value="3">Hotdog</option>
+                            </select>
+                            <span asp-validation-for="MealId" class="text-danger"></span>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-6">
+                        <fieldset>
+                            <label for="amountConsumed" style="color: black" asp-for="AmountConsumed">Consumed Amount (g)</label>
+                            <input type="text"
+                                   name="amountConsumed"
+                                   id="amountConsumed"
+                                   placeholder=""
+                                   asp-for="AmountConsumed" 
+                                   disabled />
+                            <span asp-validation-for="AmountConsumed" class="text-danger"></span>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-6">
+                        <fieldset>
+                            <label for="postMealWeight" style="color: black" asp-for="PostMealWeight">Post Meal Weight (kg)</label>
+                            <input type="text"
+                                   name="postMealWeight"
+                                   id="postMealWeight"
+                                   placeholder=""
+                                   autocomplete="on"
+                                   asp-for="PostMealWeight" 
+                                   disabled />
+                            <span asp-validation-for="PostMealWeight" class="text-danger"></span>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-lg-12" style="display: flex; justify-content: center">
+                        <fieldset>
+                            <br />
+                            <button type="submit" id="form-submit" class="orange-button">Delete Cheat Meal Log</button>
+                            <a href="/#logActivityView" class="btn btn-secondary" style="width:150px">
+                                <span>Back to List</span>
+                            </a>
+                        </fieldset>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

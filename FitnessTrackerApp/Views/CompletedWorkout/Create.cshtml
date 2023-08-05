@@ -1,0 +1,103 @@
+﻿@model CompletedWorkout
+
+@{
+    ViewData["Title"] = "CompletedWorkout";
+}
+
+<div class="page-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="header-text">
+                    <h2>Add Workout Log</h2>
+                    <div class="div-dec"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ***** Main Banner Area End ***** -->
+
+<section class="top-section" style="margin-bottom:130px;">
+    <div class="container">
+        <div class="col-lg-10 offset-lg-1">
+            <form id="calculate" action="" method="post">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <fieldset>
+                            <label for="date" style="color: black" asp-for="Date"> Date </label>
+                            <input type="date"
+                                   name="date"
+                                   id="date"
+                                   placeholder=""
+                                   autocomplete="on"
+                                   asp-for="Date"
+                                    />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                        <fieldset>
+                            <label for="chooseOption"
+                                   class="form-label"
+                                   style="color: black" asp-for="WorkoutId" >Workout Type</label>
+                            <select name="WorkoutId"
+                                    class="form-select"
+                                    aria-label="Default select example"
+                                    id="chooseOption"
+                                    onchange="this.form.click()" asp-for="WorkoutId">
+                                <option selected>Choose an Option</option>
+                                <option value="1">Running</option>
+                                <option value="2">Weight Lifting</option>
+                                <option value="3">Hiking</option>
+                            </select>
+                            <span asp-validation-for="WorkoutId" class="text-danger"></span>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-6">
+                        <fieldset>
+                            <label for="duration" style="color: black" asp-for="Duration">Duration (minutes)</label>
+                            <input type="text"
+                                   name="duration"
+                                   id="duration"
+                                   placeholder=""
+                                   asp-for="Duration"
+                                    />
+                            <span asp-validation-for="Duration" class="text-danger"></span>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-6">
+                        <fieldset>
+                            <label for="postWorkoutWeight" style="color: black" asp-for="PostWorkoutWeight">Post Workout Weight (kg)</label>
+                            <input type="text"
+                                   name="postWorkoutWeight"
+                                   id="postWorkoutWeight"
+                                   placeholder=""
+                                   autocomplete="on"
+                                   asp-for="PostWorkoutWeight"
+                                    />
+                            <span asp-validation-for="PostWorkoutWeight" class="text-danger"></span>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-lg-12" style="display: flex; justify-content: center">
+                        <fieldset>
+                            <br />
+                            <button type="submit" id="form-submit" class="orange-button">Add Workout Log</button>
+                            <a href="/#logActivityView" class="btn btn-secondary" style="width:150px">
+                                <span>Back to List</span>
+                            </a>
+                        </fieldset>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>  
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

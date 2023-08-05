@@ -1,0 +1,200 @@
+﻿@model PredictionView
+
+@{
+    ViewData["Title"] = "Predict Fitness";
+}
+
+<div class="page-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="header-text">
+                    <h2>View Predictions</h2>
+                    <div class="div-dec"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section>
+    <style>
+        .chart-container {
+            position: relative;
+            height: 300px; /* Set the desired height of the chart container */
+            overflow-y: scroll; /* Enable vertical scrolling for the chart container */
+        }
+    </style>
+
+<div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Predict Fitness for a Future Date</div>
+                    <div class="card-body">
+                        <form method="post" asp-action="PredictFitness">
+                            <div class="form-group mb-3">
+                                <label for="futureDate" class="form-label">Enter Date:</label>
+                                <input type="date" class="form-control" id="futureDate" name="futureDate" required />
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="background-color:#003366; border-color: #003366;">Predict</button>
+                            <a href="/" class="btn btn-secondary" style="width:150px">
+                                <span>Back to Home</span>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (Model != null && Model.ChartLabels != null && Model.ChartWeights != null && Model.ChartFitnessStatus != null)
+        {
+            <div class="row mt-5">
+                <div class="col-md-12 text-center">
+                    <h4 class="mt-4 mb-4">Predicted Fitness Status and Weight for @Model.FutureDate.ToString("yyyy-MM-dd")</h4>
+                    <div class="row justify-content-center">
+                        <div class="col-md-3">
+                            <p style="text-align:left">Predicted Fitness Status: <span style="color:#43ba7f; font-weight:bold"> @Model.PredictedFitnessStatus </span></p>
+                            <p style="text-align:left;">Predicted Weight: <span style="color:#43ba7f; font-weight:bold">@Model.PredictedWeight kg</span></p>
+                          </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <h4>Weight Trend</h4>
+                    <div class="chart-container" style="height: 300px; overflow-y: scroll;">
+                        <canvas id="weightChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <h4>Fitness Status Trend</h4>
+                    <div class="chart-container" style="height: 300px; overflow-y: scroll;">
+                        <canvas id="fitnessStatusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+                // Weight Chart
+                var weightChart = document.getElementById('weightChart').getContext('2d');
+                var weightData = {
+                    labels: @Html.Raw(Json.Serialize(Model.ChartLabels.TakeLast(14))),
+                    datasets: [{
+                        label: 'Predicted Weight',
+                        data: @Html.Raw(Json.Serialize(Model.ChartWeights.TakeLast(14))),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    }]
+                };
+
+                var weightOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Weight'
+                            }
+                        }
+                    }
+                };
+
+                new Chart(weightChart, {
+                    type: 'line',
+                    data: weightData,
+                    options: weightOptions
+                });
+
+                var fitnessStatusChart = document.getElementById('fitnessStatusChart').getContext('2d');
+
+                var maxDataPoints = 14; // Define the maximum number of data points to show on the chart
+                var dataLength = @Model.ChartLabels.Count; // Get the total number of data points
+
+                var fitnessStatusData = {
+                    labels: @Html.Raw(Json.Serialize(Model.ChartLabels.TakeLast(14))),
+                    datasets: [{
+                        label: 'Fitness Status',
+                        data: @Html.Raw(Json.Serialize(Model.ChartFitnessStatus.TakeLast(14))),
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    }]
+                };
+
+                var fitnessStatusOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Fitness Status'
+                            }
+                        }
+                    }
+                };
+
+                var fitnessStatusChartInstance = new Chart(fitnessStatusChart, {
+                    type: 'line',
+                    data: fitnessStatusData,
+                    options: fitnessStatusOptions
+                });
+
+                // Function to update the chart data
+                function updateFitnessStatusChart(newLabel, newData) {
+                    fitnessStatusChartInstance.data.labels.push(newLabel);
+                    fitnessStatusChartInstance.data.datasets[0].data.push(newData);
+
+                    // Remove the first data point if the dataset length exceeds the maximum
+                    if (fitnessStatusChartInstance.data.labels.length > maxDataPoints) {
+                        fitnessStatusChartInstance.data.labels.shift();
+                        fitnessStatusChartInstance.data.datasets[0].data.shift();
+                    }
+
+                    // Update the chart
+                    fitnessStatusChartInstance.update();
+                }
+
+                // Call the JavaScript function to update the fitness status chart data
+                @foreach (var data in Model.ChartLabels.Zip(Model.ChartWeights, (label, weight) => new { Label = label, Weight = weight }))
+                {
+                    <text>updateFitnessStatusChart('@data.Label', @data.Weight); </text>
+                }
+            </script>
+    }
+</div>
+
+</section>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

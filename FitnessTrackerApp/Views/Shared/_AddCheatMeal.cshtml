@@ -1,0 +1,93 @@
+﻿@model IEnumerable<CheatMeal>
+
+@{
+    ViewData["Title"] = "CheatMeals";
+}
+
+@{
+    <section id="cheatmeals">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="section-heading">
+                        <h6>Meal Repository</h6>
+                        <h4>Add Your Cheat Meals</h4>
+                    </div>
+
+                    <div class="btn" style="display:flex; justify-content:left;">
+                        <a href="about-us.html" style="color: #ff511a"> <i class="bi bi-plus-circle"></i> &nbsp; Add Meal</a> 
+                    </div>
+
+                    <section class="map">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                </div>
+                                <div class="col-lg-10 offset-lg-1">
+                                    <div class="row">
+                                     @*   @if (Model != null)
+                                        {
+                                            @foreach (var obj in Model)
+                                            {
+                                                <div class="col-lg-4">
+                                                    <div class="info-item">
+                                                        <i class="fa-solid fa-burger"></i>
+                                                        <h4>@obj.MealName</h4>
+                                                        <p>Avg. @obj.CaloriesPerGram cal/g</p><br />
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-sm" style="color:orange"> <i class="bi bi-pencil-square" style="color:orange; font-size:20px"></i> Edit</a>
+                                                            <a class="btn btn-sm" style="color:red"> <i class="bi bi-trash" style="color:red; font-size:20px;"></i> Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        } *@
+                                        <div class="col-lg-4">
+                                            <div class="info-item">
+                                                <i class="fa-solid fa-burger"></i>
+                                                <h4>Burger</h4>
+                                                <p>Avg. 35 cal/g</p><br />
+                                                <div class="btn-group">
+                                                    <a class="btn btn-sm" style="color:orange"> <i class="bi bi-pencil-square" style="color:orange; font-size:20px"></i> Edit</a>
+                                                    <a class="btn btn-sm" style="color:red"> <i class="bi bi-trash" style="color:red; font-size:20px;"></i> Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                          <div class="col-lg-4">
+                                <div class="info-item">
+                              <i class="fa-solid fa-pizza-slice"></i>
+                                <h4>Pizza</h4>
+                                <p>Avg. 15 cal/g</p><br/>
+                                <div class="btn-group">
+                                    <a class="btn btn-sm" style="color:orange"> <i class="bi bi-pencil-square" style="color:orange; font-size:20px"></i> Edit</a>
+                                    <a class="btn btn-sm" style="color:red"> <i class="bi bi-trash" style="color:red; font-size:20px;"></i> Delete</a>
+                                 </div>
+                                </div>
+                            </div>
+                           <div class="col-lg-4">
+                                <div class="info-item">
+                               <i class="fa-solid fa-hotdog"></i>
+                                <h4>Hotdog</h4>
+                                <p>Avg. 15 cal/g</p><br/>
+                                <div class="btn-group">
+                                    <a class="btn btn-sm" style="color:orange"> <i class="bi bi-pencil-square" style="color:orange; font-size:20px"></i> Edit</a>
+                                    <a class="btn btn-sm" style="color:red"> <i class="bi bi-trash" style="color:red; font-size:20px;"></i> Delete</a>
+                                 </div>
+                                </div>
+                            </div> 
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </section>
+                </div>
+            </div>
+
+           
+
+        
+    </div>
+</section>
+}

@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "LogActivity";
+}
+
+@{
+    <section class="about-us" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="section-heading">
+                        <h6>Log Acitivity</h6>
+                        <h4>Track your Workouts and Meals</h4>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="naccs">
+                        <div class="tabs">
+                            <div class="row">
+                                <div class="col-lg-12" style="display:flex; justify-content:center;">
+                                    <div class="menu" style="display:flex;">
+                                        <div class="active gradient-border"><span>Log Workouts</span></div>
+                                        <div class="gradient-border"><span>Log meals</span></div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12">
+                                    <ul class="nacc">
+                                                                            
+                                        <div id="completedWorkoutView">
+                                            <partial name="_CompletedWorkoutIndex" />
+                                        </div>
+
+                                        <div id="consumedCheatMealView">
+                                            <partial name="_ConsumedCheatMealIndex" />
+                                        </div>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script>
+            function loadCompletedWorkoutContainer() {
+                $.ajax({
+                    url: '/CompletedWorkout',
+                    type: 'GET',
+                    success: function (result) {
+                        $('#completedWorkoutView').html(result);
+                    },
+                    error: function (error) {
+                        console.error('Error loading partial view:', error);
+                    }
+                });
+            }
+
+            function loadConsumedCheatMealContainer() {
+                $.ajax({
+                    url: '/ConsumedCheatMeal',
+                    type: 'GET',
+                    success: function (result) {
+                        $('#consumedCheatMealView').html(result);
+                    },
+                    error: function (error) {
+                        console.error('Error loading partial view:', error);
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                loadCompletedWorkoutContainer();
+                loadConsumedCheatMealContainer()
+            });
+        </script>
+    </section>
+
+}

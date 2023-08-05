@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Workout>
+@{
+    ViewData["Title"] = "Workouts";
+}
+
+@{
+    <section class="calculator" id="workouts">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3" style="display:flex; justify-content:left;">
+                <div class="left-image" style="padding-right:50px">
+                    <img src="~/images/workout-repo-image.png" alt="">
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="section-heading">
+                    <h6>Workout Repository</h6>
+                    <h4>Customize Your Workouts</h4>
+                </div>
+                               
+                <div class="btn" style="display:flex; justify-content:left;">
+                        <a asp-controller="Workout" asp-action="Create" style="color: #ff511a"> <i class="bi bi-plus-circle"></i> &nbsp; Add Workout</a>
+                </div>
+                
+                <section class="map">
+                    <div class="container">
+                        <div class="row">
+                        <div class="col-lg-12">
+                        </div>
+                        <div class="col-lg-10 offset-lg-1">
+                            <div class="row">
+                            @if (Model != null)
+                             {
+                                @foreach (var obj in Model)
+                                {
+                                    <div class="col-lg-4">
+                                        <div class="info-item">
+                                            <i class="fa-solid fa-person-running"></i>
+                                            <h4>@obj.Name</h4>
+                                            <p>Avg. @obj.CalorieExpenditurePerMin cal/min</p><br />
+                                            <div class="btn-group">
+                                                <a class="btn btn-sm" style="color:orange"> <i class="bi bi-pencil-square" style="color:orange; font-size:20px"></i> Edit</a>
+                                                            <a asp-controller="Workout" asp-action="Delete" asp-route-id="@obj.WorkoutId" class="btn btn-sm" style="color:red"> <i class="bi bi-trash" style="color:red; font-size:20px;"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                             }
+
+                          @* <div class="col-lg-4">
+                                <div class="info-item">
+                                <i class="fa-solid fa-dumbbell"></i>
+                                <h4>Weight Lifting</h4>
+                                <p>Avg. 15 cal/min</p><br/>
+                                <div class="btn-group">
+                                    <a class="btn btn-sm" style="color:orange"> <i class="bi bi-pencil-square" style="color:orange; font-size:20px"></i> Edit</a>
+                                    <a class="btn btn-sm" style="color:red"> <i class="bi bi-trash" style="color:red; font-size:20px;"></i> Delete</a>
+                                 </div>
+                                </div>
+                            </div>
+                           <div class="col-lg-4">
+                                <div class="info-item">
+                                <i class="fa-solid fa-person-hiking"></i>
+                                <h4>Hiking</h4>
+                                <p>Avg. 15 cal/min</p><br/>
+                                <div class="btn-group">
+                                    <a class="btn btn-sm" style="color:orange"> <i class="bi bi-pencil-square" style="color:orange; font-size:20px"></i> Edit</a>
+                                    <a class="btn btn-sm" style="color:red"> <i class="bi bi-trash" style="color:red; font-size:20px;"></i> Delete</a>
+                                 </div>
+                                </div>
+                            </div> *@
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </section>
+                </div>
+              
+            </div>
+        </div>
+    
+</section>
+}

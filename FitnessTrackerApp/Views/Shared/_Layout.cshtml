@@ -1,0 +1,288 @@
+﻿
+@*<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FitnessTrackerApp</title>
+    <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <!--   <link rel="stylesheet" href="~/FitnessTrackerApp.styles.css" asp-append-version="true" /> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
+                                Home
+                                <span class="visually-hidden">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-sm-2" type="search" placeholder="Search">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!--  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+              <div class="container-fluid">
+                  <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FitnessTrackerApp</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                          aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                      <ul class="navbar-nav flex-grow-1">
+                          <li class="nav-item">
+                              <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+            </nav> -->
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <partial name="_Notification" />
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - FitnessTrackerApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html> *@
+
+@{
+    var controller = ViewContext.RouteData.Values["controller"] as string;
+    var action = ViewContext.RouteData.Values["action"] as string;
+
+    bool skipPartialViews = (controller == "CompletedWorkout" && action == "Create") || (controller == "CompletedWorkout" && action == "Delete") || (controller == "CompletedWorkout" && action == "Edit") || (controller == "ConsumedCheatMeal" && action == "Create") || (controller == "ConsumedCheatMeal" && action == "Edit") || (controller == "ConsumedCheatMeal" && action == "Delete") || (controller == "WeeklyReport" && action == "GenerateReport") || (controller == "PredictionView" && action == "PredictFitness") || (controller == "Workout" && action == "Create") || (controller == "Workout" && action == "Delete") || (controller == "Workout" && action == "Edit") || (controller == "CheatMeal" && action == "Create") || (controller == "CheatMeal" && action == "Delete") || (controller == "CheatMeal" && action == "Edit");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <title>Fitness Tracker App</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="~/css/fontawesome.css">
+    <link rel="stylesheet" href="~/css/templatemo-574-mexant.css">
+    <link rel="stylesheet" href="~/css/owl.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--
+
+TemplateMo 574 Mexant
+
+https://templatemo.com/tm-574-mexant
+
+-->
+  </head>
+
+<body>
+
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+      <div class="container">
+          <div class="row">
+              <div class="col-12">
+                  <nav class="main-nav">
+                      <!-- ***** Logo Start ***** -->
+                      <a href="index.html" class="logo">
+                          <img src="~/images/brandLogo.png" alt="">
+                      </a>
+                      <!-- ***** Logo End ***** -->
+                      <!-- ***** Menu Start ***** -->
+                      <ul class="nav">
+                          <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                          <li class="scroll-to-section"><a href="#services">User Profile</a></li>
+                          <li class="scroll-to-section"><a href="#about">Log Activity</a></li>
+                          <li class="has-sub">
+                              <a href="javascript:void(0)">Repository</a>
+                              <ul class="sub-menu">
+                                  <li><a href="#workouts">Workouts</a></li>
+                                  <li><a href="#cheatmeals">Meals</a></li>
+                              </ul>
+                          </li>
+                            <li class="scroll-to-section"><a asp-controller="WeeklyReport" asp-action="GenerateReport">Generate Report</a></li>
+                            <li class="scroll-to-section"><a asp-controller="PredictionView" asp-action="PredictFitness">Predictions</a></li>
+                          
+                      </ul>        
+                      <a class='menu-trigger'>
+                          <span>Menu</span>
+                      </a>
+                      <!-- ***** Menu End ***** -->
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <!-- ***** Main Banner Area Start ***** -->
+    <div>
+        <main role="main">
+            <partial name="_Notification" />
+            @if (!skipPartialViews)
+            {
+                <partial name="_Main" />
+                <partial name="_User" />
+                <div id="logActivityView">
+                    <partial name="_LogActivity" />
+                </div>
+                <div id="workoutType">
+                    <partial name="_AddWorkout" />
+                </div>
+                <div id="mealType">
+                    <partial name="_AddCheatMeal" />
+                </div>
+            } 
+            @RenderBody()
+        </main>
+    </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <p>Copyright © 2023. All Rights Reserved. 
+          
+          <br>Developed by <a title="CSS Templates" rel="sponsored" href="#" target="_blank">Samadhi Pratheesha Wijerathne</a> for <a title="CSS Templates" rel="sponsored" href="#" target="_blank">Enterprise Application Development</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/isotope.min.js"></script>
+    <script src="~/js/owl-carousel.js"></script>
+
+    <script src="~/js/tabs.js"></script>
+    <script src="~/js/swiper.js"></script>
+    <script src="~/js/custom.js"></script>
+    <script>
+        var interleaveOffset = 0.5;
+
+        var swiperOptions = {
+            loop: true,
+            speed: 1000,
+            grabCursor: true,
+            watchSlidesProgress: true,
+            mousewheelControl: true,
+            keyboardControl: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev"
+        },
+        on: {
+            progress: function() {
+            var swiper = this;
+            for (var i = 0; i < swiper.slides.length; i++) {
+                var slideProgress = swiper.slides[i].progress;
+                var innerOffset = swiper.width * interleaveOffset;
+                var innerTranslate = slideProgress * innerOffset;
+                swiper.slides[i].querySelector(".slide-inner").style.transform =
+                "translate3d(" + innerTranslate + "px, 0, 0)";
+            }      
+            },
+            touchStart: function() {
+            var swiper = this;
+            for (var i = 0; i < swiper.slides.length; i++) {
+                swiper.slides[i].style.transition = "";
+            }
+            },
+            setTransition: function(speed) {
+            var swiper = this;
+            for (var i = 0; i < swiper.slides.length; i++) {
+                swiper.slides[i].style.transition = speed + "ms";
+                swiper.slides[i].querySelector(".slide-inner").style.transition =
+                speed + "ms";
+            }
+            }
+        }
+        };
+
+        var swiper = new Swiper(".swiper-container", swiperOptions);
+
+        function loadWorkoutContainer() {
+            $.ajax({
+                url: '/Workout',
+                type: 'GET',
+                success: function (result) {
+                    $('#workoutType').html(result);
+                },
+                error: function (error) {
+                    console.error('Error loading partial view:', error);
+                }
+            });
+        }
+
+        function loadMealContainer() {
+            $.ajax({
+                url: '/CheatMeal',
+                type: 'GET',
+                success: function (result) {
+                    $('#mealType').html(result);
+                },
+                error: function (error) {
+                    console.error('Error loading partial view:', error);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            loadWorkoutContainer();
+            loadMealContainer()
+        });
+
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+  </body>
+</html>
